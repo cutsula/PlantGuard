@@ -4,7 +4,7 @@ PlantGuard adalah aplikasi berbasis Artificial Intelligence (AI) yang digunakan 
 
 ## 📷 Tampilan Dashboard
 
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshoot/dashboard.png)
 
 ## ✨ Fitur
 
