@@ -134,7 +134,7 @@ function App() {
     const [data, setData] = useState(null);
     const [image, setImage] = useState(false);
     const [plant, setPlant] = useState('');
-    const [isLoading, setIsloading] = useState(false);
+    const [, setIsloading] = useState(false);
 
     const sendFile = async () => {
         if (plant === "") {
