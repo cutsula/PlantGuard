@@ -46,6 +46,7 @@ const useStyles = makeStyles({
     backgroundImage: `url(${image})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'repeat-x',
+    backgroundSize: 'auto 100%',
     backgroundPosition: 'center',
     minHeight: "100vh",
     display: 'flex',
@@ -134,7 +135,7 @@ function App() {
     const [data, setData] = useState(null);
     const [image, setImage] = useState(false);
     const [plant, setPlant] = useState('');
-    const [, setIsloading] = useState(false);
+    const [isLoading, setIsloading] = useState(false);
 
     const sendFile = async () => {
         if (plant === "") {
@@ -154,8 +155,8 @@ function App() {
             setIsloading(true);
             let formData = new FormData();
             formData.append("file", selectedFile);
-            let res = await axios.post(`${process.env.REACT_APP_API_URL}/predict/?name=${plant}`, formData);
-            if (res.status === 200) {
+                // Menghilangkan tanda slash '/' setelah kata predict agar pas dengan endpoint FastAPI
+                let res = await axios.post(`${process.env.REACT_APP_API_URL}/predict?name=${plant}`, formData);            if (res.status === 200) {
                 setData(res.data)
             } else {
                 setData(null)
