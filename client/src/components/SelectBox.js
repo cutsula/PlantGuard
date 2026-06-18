@@ -12,9 +12,16 @@ function SelectBox({ plant, setPlant }) {
   const getDisease = async () => {
     try {
       let res = await axios.get(`${process.env.REACT_APP_API_URL}/diseases`);
-      setPlantDiseases(res.data);
+      // PENGAMAN: Hanya set state jika data yang kembali dari API benar-benar berbentuk Array
+      if (Array.isArray(res.data)) {
+        setPlantDiseases(res.data);
+      } else {
+        console.error("Respon API bukan array:", res.data);
+        setPlantDiseases([]); // kembalikan ke array kosong agar tidak crash
+      }
     } catch (e) {
       console.error("Gagal memuat data tanaman:", e);
+      setPlantDiseases([]);
     }
   };
 
@@ -64,16 +71,9 @@ function SelectBox({ plant, setPlant }) {
             fontSize: '0.9rem',
             borderRadius: 'var(--radius-sm)',
             bgcolor: '#fff',
-            '& .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'var(--gray-300)',
-            },
-            '&:hover .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'var(--green-bright)',
-            },
-            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-              borderColor: 'var(--green-mid)',
-              borderWidth: '2px',
-            },
+            '& .MuiOutlinedInput-notchedOutline': { borderColor: 'var(--gray-300)' },
+            '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'var(--green-bright)' },
+            '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'var(--green-mid)', borderWidth: '2px' },
           }}
           MenuProps={{
             PaperProps: {
@@ -98,7 +98,8 @@ function SelectBox({ plant, setPlant }) {
             },
           }}
         >
-          {plantDiseases.map(item => (
+          {/* PENGAMAN UTAMA: Cek tipe data sebelum .map() */}
+          {Array.isArray(plantDiseases) && plantDiseases.map(item => (
             <MenuItem key={item.key} value={item.key}>
               {item.name}
             </MenuItem>
