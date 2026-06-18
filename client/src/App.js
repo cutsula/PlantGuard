@@ -46,7 +46,6 @@ const useStyles = makeStyles({
     backgroundImage: `url(${image})`,
     backgroundSize: 'cover',
     backgroundRepeat: 'repeat-x',
-    backgroundSize: 'auto 100%',
     backgroundPosition: 'center',
     minHeight: "100vh",
     display: 'flex',
@@ -135,7 +134,7 @@ function App() {
     const [data, setData] = useState(null);
     const [image, setImage] = useState(false);
     const [plant, setPlant] = useState('');
-    const [isLoading, setIsloading] = useState(false);
+    const [, setIsloading] = useState(false);
 
     const sendFile = async () => {
         if (plant === "") {
